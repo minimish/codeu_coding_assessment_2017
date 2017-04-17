@@ -20,7 +20,14 @@ final class MyJSONParser implements JSONParser {
 
   @Override
   public JSON parse(String in) throws IOException {
-    // TODO: implement this
+    String open = "{";
+    String close = "}";
+    String str = open + in + close;
+    JSON result = str;
+    try {
+      return return result;
+    } catch (Exception e) {
     return new MyJSON();
+    }
   }
 }
