@@ -23,7 +23,7 @@ final class MyJSON implements JSON {
   @Override
   //gets name from map
   public JSON getObject(String name) {
-    if(map.containsKey(name) {
+    if(map.containsKey(name)) {
       if(map.get(name) instanceof JSON) {
         return map.get(name);
       }
@@ -39,7 +39,7 @@ final class MyJSON implements JSON {
 
   @Override
   public String getString(String name) {
-    if(map.containsKey(name) {
+    if(map.containsKey(name)) {
       if(map.get(name) instanceof String) {
         return map.get(name);
       }
