@@ -15,6 +15,7 @@
 package com.google.codeu.codingchallenge;
 
 import java.util.Collection;
+import java.util.*;
 
 final class MyJSON implements JSON {
   
@@ -25,7 +26,7 @@ final class MyJSON implements JSON {
   public JSON getObject(String name) {
     if(map.containsKey(name)) {
       if(map.get(name) instanceof JSON) {
-        return map.get(name);
+        return (JSON) map.get(name);
       }
     }
     return null;
@@ -33,6 +34,9 @@ final class MyJSON implements JSON {
 
   @Override
   public JSON setObject(String name, JSON value) {
+    if(map.containsKey(name) && map.get(name) instanceof JSON) {
+      map.remove(name);
+    }
     map.put(name, value);
     return this;
   }
@@ -41,7 +45,7 @@ final class MyJSON implements JSON {
   public String getString(String name) {
     if(map.containsKey(name)) {
       if(map.get(name) instanceof String) {
-        return map.get(name);
+        return (String) map.get(name);
       }
     }
     return null;
@@ -49,29 +53,30 @@ final class MyJSON implements JSON {
 
   @Override
   public JSON setString(String name, String value) {
+    if(map.containsKey(name) && map.get(name) instanceof String) {
+      map.remove(name);
+    }
     map.put(name, value);
     return this;
   }
 
   @Override
   public void getObjects(Collection<String> names) {
-    Iterator<E> it = map.iterator();
-    while(it.hasNext()) {
-      String key = it.next();
-      if(getObject(key) != null) {
-        names.add(key);
+    Set allKeys = map.keySet();
+    for(Object key: allKeys) {
+      if(map.get(key) instanceof Object) {
+        names.add((String)key);
       }
     }
   }
 
   @Override
   public void getStrings(Collection<String> names) {
-   Iterator<E> it = map.iterator();
+    Set allKeys = map.keySet();
+    Iterator it = allKeys.iterator();
     while(it.hasNext()) {
-      String key = it.next();
-      if(getObject(key) != null) {
-        names.add(key);
-      }
+      names.add((String)it.next());
     }
   }
+
 }
